@@ -49,14 +49,14 @@
                             <td class="al_center">{{$personage->dexterity}}</td>
                             <td class="al_center">{{$personage->magic}}</td>
                             <td class="al_center">
-                                <input type = "checkbox" id = "id-{{$personage->id}}" name = "troca[{{$personage->id}}]" data-chave="{{$personage->id}}">
+                                <input type="checkbox" id="id-{{$personage->id}}" name="tropa[{{$personage->id}}]" value="{{$personage->id}}" data-chave="{{$personage->id}}">
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
             <div class="box-footer ">
-                <button type="submit" class="btn btn-primary navbar-right" style="float:right;">Escolher armas</button>
+                <button type="submit" id="continue" class="btn btn-primary navbar-right" style="float:right;" disabled>Escolher armas</button>
             </div>
         </form>
     <br>
@@ -96,7 +96,7 @@
                     </tbody>
                 </table>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" >Fechar</button>
                 </div>
             </div>
 
@@ -179,5 +179,47 @@
 @stop
 
 @section('js-view')
+    <script>
 
+
+        jQuery(document).ready(function(){
+            $( "input[type=checkbox]" ).click(function(){
+                if($(":checkbox:checked").length == 5){
+                    camposMarcados = new Array();
+
+                    $( "#msgSuccess" ).text("");
+                    $( "#msgError" ).text("");
+                    $("#msgSuccess").css("display", "none");
+                    $("#msgError").css("display", "none");
+
+                    $("input[type=checkbox]:checked").each(function(){
+                        camposMarcados.push($(this).val());
+                    });
+
+                    $exite=false;
+                    for (i = 0; i < camposMarcados.length; i++) {
+                        if(camposMarcados[i] == '1' || camposMarcados[i] == '2' || camposMarcados[i] == '3' || camposMarcados[i] == '4'){
+                            $exite=true;
+                        }
+                    }
+                    if($exite)
+                    {
+                        $("#continue").prop("disabled", false);
+                    }else{
+                        $("#continue").prop("disabled", true);
+                        $( "#msgError" ).show();
+                        $( "#msgError" ).text('Para prosseguir é preciso adicionar ao menos um Hobbit.');
+                    }
+                }
+
+                if($(":checkbox:checked").length > 5){
+                    $("#continue").prop("disabled", true);
+                    $( "#msgError" ).show();
+                    $( "#msgError" ).text('Selecione apenas 5 guerreiros.');
+                }
+
+            });
+        });
+
+    </script>
 @stop

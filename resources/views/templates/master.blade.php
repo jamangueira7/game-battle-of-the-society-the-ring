@@ -7,7 +7,11 @@
             @include('templates.header')
         </header>
         <div class="container">
-
+            {{--MENSAGENS AO USUARIO--}}
+            <div class="alert alert-success" id="msgSuccess"role="alert" style=display:none >
+            </div>
+            <div class="alert alert-danger" id="msgError" role="alert" style=display:none >
+            </div>
             {{--CONTEUDO DO SISTEMA--}}
             <div class="row">
                 @yield('conteudo-view')
