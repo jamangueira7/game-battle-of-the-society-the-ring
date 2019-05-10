@@ -8,7 +8,7 @@
 @section('conteudo-view')
 
     <div class="col-lg-6">
-        <h1 class="my-4">Escolha 5 herois:</h1>
+        <h1 class="my-4">Escolha 5 heróis:</h1>
     </div>
 
     <div class="col-lg-6">
