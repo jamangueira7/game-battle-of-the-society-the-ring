@@ -25,6 +25,7 @@ class Game extends Controller
     public function backoff()
     {
         return view('game.result',[
+            'danger' => true,
             'result' =>"VERGONHA!
             Fugiram como covardes, envergonharam o reino de Gondor e condenaram a Terra Media a escuridão!
             Voltem e lutem pela Terra Media e por HONRA!"
@@ -35,6 +36,7 @@ class Game extends Controller
     {
 
         return view('game.result',[
+            'danger' => false,
             'result' =>"VERGONHA!
             Fugiram como covardes, envergonharam o reino de Gondor e condenaram a Terra Media a escuridão!
             Voltem e lutem pela Terra Media e por HONRA!"
