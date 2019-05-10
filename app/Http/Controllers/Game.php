@@ -33,7 +33,7 @@ class Game extends Controller
 
     public function battle()
     {
-        
+
         return view('game.result',[
             'result' =>"VERGONHA!
             Fugiram como covardes, envergonharam o reino de Gondor e condenaram a Terra Media a escuridão!

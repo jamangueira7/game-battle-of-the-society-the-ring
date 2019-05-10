@@ -11,7 +11,7 @@
     </div>
 
     <div class="col-lg-12">
-        <form method="post" action="{{route('game.battle')}}">
+        <form method="post" action="{{route('game.villains')}}">
             @csrf
             <table class="table table-hover al_center" style="max-width: 99.99%;">
                 <thead>
