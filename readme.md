@@ -2,7 +2,7 @@
 
 ## Pre requisitos
 
-Rerramentas usada para fazer o projeto:
+Ferramentas usada para fazer o projeto:
 
 - PHP 7.2
 - Composer version 1.8.4
@@ -12,7 +12,7 @@ Rerramentas usada para fazer o projeto:
 
 ## Como executar o projeto
 
-Para executar o projeto siga os comando abaixo:
+Para executar o projeto siga os comandos abaixo:
 
 - **Clone o projeto.**
 - **Entre na pasta do projeto clonado e digite o comando "composer install"**
@@ -33,4 +33,4 @@ Para executar o projeto siga os comando abaixo:
 
 ## Licença
 
-O framework Laravel usa a linceça [MIT license](https://opensource.org/licenses/MIT).
+O framework Laravel e esse projeto usam a linceça [MIT license](https://opensource.org/licenses/MIT).
