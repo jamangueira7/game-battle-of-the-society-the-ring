@@ -9,10 +9,10 @@
         <h1 class="my-4">Resultado:</h1>
     </div>
 
-    @if($danger)
-        <div class="col-lg-12 alert alert-danger">
-    @else
+    @if($visual)
         <div class="col-lg-12 alert alert-success">
+    @else
+        <div class="col-lg-12 alert alert-danger">
     @endif
             <h1 class="my-4">{{$result}}</h1>
         </div>

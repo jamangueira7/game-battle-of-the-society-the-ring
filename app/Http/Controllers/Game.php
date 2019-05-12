@@ -11,6 +11,10 @@ class Game extends Controller
     //
     public function index()
     {
+
+        session()->forget('villain');
+        session()->forget('heros');
+
         $personages = Personage::all()->where('hero','=',true);
         $ever = Personage::all();
         $weapons = Weapons::all();
@@ -21,6 +25,11 @@ class Game extends Controller
             'weapons' =>$weapons
         ]);
     }//index
+
+    public function new()
+    {
+        return redirect()->route('game.index');
+    }//new
 
     public function backoff()
     {
@@ -34,18 +43,90 @@ class Game extends Controller
 
     public function battle()
     {
+        $cont_heros = 0;
+        $cont_villains = 0;
+        $frodo_rings = false;
 
+        foreach (session('heros') as $heros){
+            $cont_heros += (int)$heros['force'];
+            $cont_heros += (int)$heros['dexterity'];
+            $cont_heros += (int)$heros['magic'];
+            if($heros['name'] == "Frodo" && $heros['weapons']->name == "Um Anel"){
+                $frodo_rings = true;
+            }
+            if($this->checkLimitation($heros['weapons']->limitation,
+                (int)$heros['force'],
+                (int)$heros['dexterity'],
+                (int)$heros['magic'],
+                $heros['name']
+            )) {
+                $cont_heros += (int)rand($heros['weapons']->force_min, $heros['weapons']->force_max);
+                $cont_heros += (int)rand($heros['weapons']->dexterity_min, $heros['weapons']->dexterity_max);
+                $cont_heros += (int)rand($heros['weapons']->magic_min, $heros['weapons']->magic_max);
+            }
+        }
+
+        foreach (session('villain') as $villains){
+            if(!$frodo_rings && $villains['name'] == "Olho De Sauron") {
+                continue;
+            }
+            $cont_villains += (int)$villains['force'];
+            $cont_villains += (int)$villains['dexterity'];
+            $cont_villains += (int)$villains['magic'];
+            if($this->checkLimitation($villains['weapons']->limitation,
+                (int)$villains['force'],
+                (int)$villains['dexterity'],
+                (int)$villains['magic'],
+                $villains['name']
+            )){
+                $cont_villains += (int) rand($villains['weapons']->force_min, $villains['weapons']->force_max);
+                $cont_villains += (int) rand($villains['weapons']->dexterity_min, $villains['weapons']->dexterity_max);
+                $cont_villains += (int) rand($villains['weapons']->magic_min, $villains['weapons']->magic_max);
+            }
+        }
+
+        $visual = false;
+        $msg = "";
+        if($cont_villains < $cont_heros){
+            $visual = true;
+            $msg = "VITORIA! A sociedade do Anel mostra sua força e derrota as forças inimigas!";
+        }else{
+            $visual = false;
+            $msg = "DERROTA! A sociedade do Anel foi destruida como insetos!";
+        }
+        //dd(session('villain'), session('heros'),$cont_heros, $cont_villains);
         return view('game.result',[
-            'danger' => false,
-            'result' =>"VERGONHA!
-            Fugiram como covardes, envergonharam o reino de Gondor e condenaram a Terra Media a escuridão!
-            Voltem e lutem pela Terra Media e por HONRA!"
+            'visual' => $visual,
+            'result' =>$msg
         ]);
-    }//backoff
+    }//battle
+
+    private function checkLimitation($limitaion, $force, $dexterity, $magic, $name)
+    {
+        if($limitaion == "Força >= 2" && $force >= 2){
+            return true;
+        }elseif($limitaion == "Força >= 5" && $force >= 5){
+            return true;
+        }elseif($limitaion == "Destreza >= 5" && $dexterity >= 5){
+            return true;
+        }elseif($limitaion == "Destreza >= 4" && $dexterity >= 4){
+            return true;
+        }elseif($limitaion == "Destreza >= 7" && $dexterity >= 7){
+            return true;
+        }elseif($limitaion == "Força >= 8" && $force >= 8){
+            return true;
+        }elseif($limitaion == "Magia >= 10" && $magic >= 10){
+            return true;
+        }elseif($limitaion == "Somente o Frodo" && $name == "Frodo"){
+            return true;
+        }elseif($limitaion == "Somente o Aragorn" && $name == "Aragorn"){
+            return true;
+        }
+        return false;
+    }//checkLimitation
 
     public function hero(Request $request)
     {
-
         $result = Array();
         foreach ($request->get('tropa') as $tropa){
             array_push($result,$tropa);
@@ -108,6 +189,7 @@ class Game extends Controller
             //GARANTINDO QUE SEMPRE TERÁ UM Uruk-Hai
             if(count($aux) == 4 && !in_array(1, $aux)){
                 $x--;
+                unset($aux[4]);
             }
 
         }

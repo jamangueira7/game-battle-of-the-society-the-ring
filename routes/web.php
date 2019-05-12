@@ -12,6 +12,7 @@
 */
 
 Route::get('/', ['as' => 'game.index','uses' => 'Game@index']);
+Route::get('/new', ['as' => 'game.new','uses' => 'Game@new']);
 Route::post('/hero', ['as' => 'game.hero','uses' => 'Game@hero']);
 Route::post('/villains', ['as' => 'game.villains','uses' => 'Game@villains']);
 Route::get('/backoff', ['as' => 'game.backoff','uses' => 'Game@backoff']);
