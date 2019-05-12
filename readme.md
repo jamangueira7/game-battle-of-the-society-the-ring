@@ -17,7 +17,7 @@ Para executar o projeto siga os comandos abaixo:
 - **Clone o projeto.**
 - **Entre na pasta do projeto clonado e digite o comando "composer install"**
 - **Depois de instaladas todas as dependencias crie um banco no MySql. Eu crie como "game"**
-- **Renovei o arquivo ".env.exmeplo" para ".env" e preencha os seues dados de conexão.**
+- **Renovei o arquivo ".env.exmeplo" para ".env" e preencha os seus dados de conexão.**
 
         DB_CONNECTION=mysql
         DB_HOST=127.0.0.1
