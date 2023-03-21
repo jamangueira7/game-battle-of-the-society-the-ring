@@ -7,7 +7,7 @@
   </p>
 <br>
 
-#Projeto Jogo - Batalha da Sociedade do Anel
+# Projeto Jogo - Batalha da Sociedade do Anel
 
 ## 🚀 Tecnologias
 
@@ -20,6 +20,8 @@ Esse projeto foi desenvolvido com as seguintes tecnologias:
 - [CSS3](https://developer.mozilla.org/pt-BR/docs/Web/CSS)
 
 ## 💻 Projeto
+
+Projeto de um jogo de estrategia sobre a batalha da sociedade do anel.
 
 ## 🚀 Como Rodar
 
